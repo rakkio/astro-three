@@ -1,11 +1,444 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Chair from '../components/Chair.astro';
 ---
 
 <Layout>
-	<Welcome />
+	<div class="loading-overlay" id="loading-overlay">
+		<div class="loader">Loading 3D Model...</div>
+	</div>
+	<Chair />
+	<div class="content-wrapper">
+		<section class="hero-section">
+			<div class="hero">
+				<h1>OFFICE FOR FUTURE FURNITURE</h1>
+			</div>
+			<div class="hero-container">
+				<div class="hero-text-container">
+					<div class="hero-text">
+						<h3>
+							future living design research studio installations,
+							exhibitions, events, and more.
+						</h3>
+					</div>
+					<div class="hero-text-2">
+						<h3>
+							IT/ES/CH
+						</h3>	
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="products-section">
+			<div class="container">
+				<h2 class="archive-title">Archive</h2>
+				<ul class="product-list">
+					<li class="product-item">
+						<div class="flex justify-center">
+							<h2 class="product-title">
+								<span>Double Chair</span>
+								<span class="product-year">2021</span>
+							</h2>
+						</div>
+						<div class="product-info">
+							<div class="product-details">
+								<p class="product-location">IT / ES</p>
+								<a href="/work/double" class="product-link">
+									<div class="link-text">
+										<div>PROJECT</div>
+										<div>DETAILS</div>
+									</div>
+								</a>
+								<h3 class="product-type">Armchair</h3>
+								<p class="product-category">Interior</p>
+							</div>
+						</div>
+					</li>
+					
+					<li class="product-item">
+						<div class="flex justify-center">
+							<h2 class="product-title">
+								<span>Stick Chair</span>
+								<span class="product-year">2022</span>
+							</h2>
+						</div>
+						<div class="product-info">
+							<div class="product-details">
+								<p class="product-location">CH / WW</p>
+								<a href="/work/stick" class="product-link">
+									<div class="link-text">
+										<div>PROJECT</div>
+										<div>DETAILS</div>
+									</div>
+								</a>
+								<h3 class="product-type">Chair</h3>
+								<p class="product-category">Office</p>
+							</div>
+						</div>
+					</li>
+					
+					<li class="product-item">
+						<div class="flex justify-center">
+							<h2 class="product-title">
+								<span>Modulare</span>
+								<span class="product-year">2023</span>
+							</h2>
+						</div>
+						<div class="product-info">
+							<div class="product-details">
+								<p class="product-location">IT / US</p>
+								<a href="/work/modulare" class="product-link">
+									<div class="link-text">
+										<div>PROJECT</div>
+										<div>DETAILS</div>
+									</div>
+								</a>
+								<h3 class="product-type">System</h3>
+								<p class="product-category">Commercial</p>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+		<section class="about-section">
+			<div class="container">
+				<h3 class="about-title">
+					We're an Italian, Spanish and swiss multidisciplinary design 
+					studio focused on interior design, installations, digital 
+					imagery and meta-space research.
+				</h3>
+				<ul class="contact-list">
+					<li class="contact-item">
+						<p class="contact-label">STUDIO</p>
+						<p class="contact-info">
+							STUDIO <span class="font-special">(AT)</span> OFFICESTUD 
+							<span class="font-special">(DOT)</span> IO
+						</p>
+					</li>
+					<li class="contact-item">
+						<p class="contact-label">PRESS</p>
+						<p class="contact-info">
+							PRESS <span class="font-special">(AT)</span> OFFICESTUD 
+							<span class="font-special">(DOT)</span> IO
+						</p>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+		<section class="content-container black">
+			<div class="footer">
+				<div class="footer-text">
+					<h3>© OFFICE FOR FUTURE FURNITURE 2025</h3>
+				</div>
+			</div>
+		</section>
+	</div>
 </Layout>
+
+<script>
+	// Hide loading overlay when the model is loaded
+	document.addEventListener('DOMContentLoaded', () => {
+		// Wait a bit to ensure Three.js has initialized
+		setTimeout(() => {
+			// We'll hide the loader after a maximum time or when we detect the canvas is ready
+			const checkCanvas = setInterval(() => {
+				const canvas = document.querySelector('#chair-container canvas');
+				const overlay = document.getElementById('loading-overlay');
+				if (canvas && overlay) {
+					overlay.style.opacity = '0';
+					setTimeout(() => {
+						if (overlay) {
+							overlay.style.display = 'none';
+						}
+					}, 500);
+					clearInterval(checkCanvas);
+				}
+			}, 100);
+			
+			// Fallback: hide loader after max 5 seconds regardless
+			setTimeout(() => {
+				const overlay = document.getElementById('loading-overlay');
+				if (overlay) {
+					overlay.style.opacity = '0';
+					setTimeout(() => {
+						if (overlay) {
+							overlay.style.display = 'none';
+						}
+					}, 500);
+				}
+				clearInterval(checkCanvas);
+			}, 5000);
+		}, 500);
+	});
+</script>
+
+<style>	
+	.content-wrapper {
+		position: relative;
+		z-index: 1; 
+		pointer-events: auto;
+		height: auto;
+	}
+
+	.hero-section {
+		position: relative;
+		height: 100vh;
+		width: 100%;
+		pointer-events: none; 
+		z-index: 1;
+	}
+	
+	.hero-section h1 {
+		font-size: 2lh;
+	}
+	.hero-section h3 {
+		pointer-events: auto; 
+		mix-blend-mode: difference; 
+	}
+
+	.hero {
+		color: white;
+		width: 80vw;
+		min-height: 100vh;
+		white-space: wrap;
+		font-size: 6.5lh;
+		font-weight: 900;
+		text-transform: uppercase;
+		display: flex;
+	}
+
+	.hero-container {
+		position: absolute;
+		gap: 10px;
+		top: calc(40% - 100px);
+		left: calc(70% - 100px);
+		color: white;
+		width: 600px;
+		height: 200px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.hero-text-container {
+		display: flex;
+		gap: 10px;
+		width: 100%;
+	}
+
+	.hero-text {
+		width: 100%;
+	}
+
+	.hero-text-2 {
+		width: 100%;
+		text-align: right;
+	}
+
+	/* Sección de productos */
+	.products-section {
+		min-height: 100vh;
+		width: 100%;
+		padding: 8rem 0;
+		background-color: transparent;
+		z-index: 2;
+	}
+	
+	.container {
+		width: 100%;
+		max-width: 1400px;
+		margin: 0 auto;
+		padding: 0 1rem;
+	}
+	
+	.archive-title {
+		font-size: clamp(2rem, 5vw, 3rem);
+		margin-bottom: 4rem;
+		text-align: center;
+		color: white;
+		text-transform: uppercase;
+	}
+	
+	.product-list {
+		list-style: none;
+		padding: 0;
+	}
+	
+	.product-item {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 2rem;
+		padding-bottom: 2rem;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+		cursor: pointer;
+		transition: opacity 0.3s ease;
+	}
+	
+	.product-item:hover {
+		opacity: 0.8;
+	}
+	
+	.product-title {
+		font-size: clamp(2rem, 10vw, 5rem);
+		line-height: 0.9em;
+		text-align: center;
+		max-width: 80vw;
+		color: white;
+		text-transform: uppercase;
+		font-weight: 900;
+	}
+	
+	.product-year {
+		margin-left: 1rem;
+		font-size: 1.2rem;
+		font-weight: normal;
+		vertical-align: middle;
+	}
+	
+	.product-info {
+		display: flex;
+		justify-content: center;
+		margin-top: 1.5rem;
+		margin-bottom: 2rem;
+	}
+	
+	.product-details {
+		display: flex;
+		width: 50vw;
+		justify-content: space-between;
+		color: white;
+	}
+	
+	.product-link {
+		position: relative;
+		text-decoration: none;
+		color: white;
+		overflow: hidden;
+	}
+	
+	.link-text {
+		transform: translateY(0);
+		transition: transform 0.3s ease;
+	}
+	
+	.product-link:hover .link-text {
+		transform: translateY(-100%);
+	}
+	
+	.product-type, .product-category, .product-location {
+		font-size: 0.9rem;
+	}
+	
+	/* Sección About */
+	.about-section {
+		background-color: transparent;
+		padding: 8rem 0;
+		margin-bottom: 30vh;
+		z-index: 100;
+	}
+	
+	.about-title {
+		font-size: clamp(1.5rem, 4vw, 3.5rem);
+		line-height: 0.9em;
+		color: white;
+		text-transform: uppercase;
+		max-width: 30ch;
+		margin-bottom: 3rem;
+	}
+	
+	.contact-list {
+		list-style: none;
+		padding: 0;
+		margin-top: 2rem;
+		font-size: 0.75rem;
+	}
+	
+	.contact-item {
+		display: flex;
+		margin: 0.5rem 0;
+		text-transform: uppercase;
+	}
+	
+	.contact-label {
+		font-weight: bold;
+		width: 10vw;
+		margin-right: 2rem;
+	}
+	
+	.contact-info {
+		color: white;
+	}
+	
+	.font-special {
+		font-style: normal;
+	}
+	
+	/* Footer */
+	.footer {
+		padding: 2rem 0;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+	
+	.footer-text {
+		font-size: 0.8rem;
+		color: rgba(255, 255, 255, 0.5);
+	}
+
+	.black {
+		background-color: rgb(17, 16, 16);
+		min-height: 20vh;
+	}
+	
+	/* Media queries */
+	@media (max-width: 768px) {
+		.product-year, .product-location, .product-type {
+			display: none;
+		}
+		
+		.product-details {
+			width: 90vw;
+		}
+		
+		.contact-item {
+			flex-direction: column;
+		}
+		
+		.contact-label {
+			width: 100%;
+			margin-bottom: 0.5rem;
+		}
+		
+		.about-title {
+			font-size: 6vw;
+		}
+	}
+
+	.loading-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background-color: #111010;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 1000;
+		transition: opacity 0.5s ease;
+	}
+	
+	.loader {
+		color: white;
+		font-size: 1.5rem;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+	}
+</style>

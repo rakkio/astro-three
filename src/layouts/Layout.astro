@@ -1,3 +1,7 @@
+---
+
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -5,18 +9,33 @@
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>Office For Future Furniture</title>
 	</head>
 	<body>
 		<slot />
 	</body>
 </html>
 
-<style>
+<style is:global>
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	
 	html,
 	body {
-		margin: 0;
 		width: 100%;
-		height: 100%;
+		height: auto;
+		min-height: 100vh;
+		background-color: rgb(17, 16, 16);
+		color: white;
+		overflow-x: hidden;
+		overflow-y: auto;
+		font-family: monospace;
+	}
+	
+	canvas {
+		display: block;
 	}
 </style>
